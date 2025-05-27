@@ -1,0 +1,132 @@
+"use client"
+
+import { useState } from "react"
+import logo from "../../../public/logo.png"
+import menu from "../../../public/menu.svg"
+import cart from "../../../public/shopping-cart.svg"
+import Image from "next/image"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+
+export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const router = useRouter()
+
+  return (
+    <header className="dark:bg-accent2 bg-primary text-light dark:text-primary rounded-b-lg">
+      <nav className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        {/* Móvil: botón Menu */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden"
+        >
+          <Image src={menu} alt="menu" />
+        </button>
+
+        {/* Logo / Brand */}
+        <Image src={logo} alt="serenade logo" className="h-7 w-auto" />
+
+        {/* Móvil: carrito a la derecha */}
+        <Image src={cart} className="md:hidden" alt="shopping cart" />
+
+        {/* Desktop: menú principal */}
+        <ul className="hidden md:flex gap-8 items-center">
+          <Link
+            href={"/"}
+            className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out"
+          >
+            inicio
+          </Link>
+
+          {/* <li className="relative group">
+            <span className="cursor-pointer hover:text-light text-light dark:text-primary">
+              productos
+            </span>
+            <ul
+              className="
+              absolute left-0 top-full
+              bg-primary dark:bg-accent2
+              mt-0
+              -translate-y-px
+              shadow-lg
+              rounded-b-lg
+              opacity-0 group-hover:opacity-100
+              invisible group-hover:visible
+              overflow-hidden
+              transition-opacity
+            "
+            >
+              {["gorras", "vasos", "camisas"].map((item) => (
+                <li
+                  key={item}
+                  className="px-4 py-2 hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer whitespace-nowrap transition-colors duration-200 ease-in-out"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </li> */}
+
+          <Link
+            href={"/about"}
+            className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out"
+          >
+            quienes somos
+          </Link>
+          {/* <Link className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out">
+            contactános
+          </Link>
+          <Link className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out">
+            carrito
+          </Link> */}
+        </ul>
+      </nav>
+
+      {/* Móvil: menú colapsado */}
+      {mobileMenuOpen && (
+        // Fondo semitransparente que ocupa toda la pantalla
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-shadow p-5"
+          onClick={() => setMobileMenuOpen(false)} // cerrar al click fuera
+        >
+          <div
+            className="relative bg-header-bg text-header-text p-6 rounded-lg flex flex-col items-center gap-2.5 w-max dark:bg-accent2 dark:text-light bg-primary text-light"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="absolute top-2 right-2 font-bold text-xl leading-none"
+            >
+              X
+            </button>
+
+            {/* Opciones centradas */}
+            <Link
+              href="/"
+              className="py-2 font-bold"
+              onClick={(e) => {
+                e.preventDefault()
+                setMobileMenuOpen(false)
+                router.push("/")
+              }}
+            >
+              inicio
+            </Link>
+            <Link
+              href="/about"
+              className="py-2 font-bold"
+              onClick={(e) => {
+                e.preventDefault()
+                setMobileMenuOpen(false)
+                router.push("/about")
+              }}
+            >
+              quienes somos
+            </Link>
+            {/* añade más enlaces aquí */}
+          </div>
+        </div>
+      )}
+    </header>
+  )
+}

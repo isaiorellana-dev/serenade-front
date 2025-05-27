@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* app/globals.css */
+
+@theme {
+  --color-primary: #575e5e;
+  --color-light: #fbeee2;
+  --color-accent1: #d7a474;
+  --color-accent2: #94a99a;
+  --color-accent3: #eda9a5;
+  --color-accent4: #d8d6ac;
+  /* --font-sans: var(--font-public-sans); */
+
+  --header-bg: var(--color-primary);
+  --header-text: var(--color-light);
+  --main-bg: var(--color-light);
+  --main-text: var(--color-primary);
+
+  --text-title: 3rem;
+  --text-button: 1rem;
+  --text-body: 1rem;
+
+  --font-button: 600;
+  --font-title: 700;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-primary);
+  @variant dark {
+    color: var(--color-light);
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+h1,
+h2 {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+
+@media (min-width: 48rem) {
+  h1,
+  h2 {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+}
+
+section {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.button {
+  color: var(--color-light);
+  background-color: var(--color-primary);
+  @variant dark {
+    color: var(--color-primary);
+    background-color: var(--color-light);
+  }
+}
+
+.bg-shadow {
+  background-color: rgba(0, 0, 0, 0.281);
+}
+
+p {
+  color: var(--color-primary);
+  font-size: 1rem;
+  @variant dark {
+    color: var(--color-light);
+  }
+}
+
+main {
+  background-color: var(--color-light);
+  @variant dark {
+    background-color: var(--color-primary);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-light);
+  @variant dark {
+    background-color: var(--color-primary);
+  }
 }
+
+@layer utilities {
+  .font-title {
+    font-weight: var(--font-title);
+  }
+}
+
+/* @layer base {
+  html {
+    font-family: var(--font-public-sans), system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+} */
