@@ -1,13 +1,10 @@
 import Image from "next/image"
-// import gift from "../../../public/gift.png"
-import crafting from "../../../public/crafting-sm.png"
-// import expopier from "../../../public/expopier.png"
 import send from "../../../public/send.png"
 
 export default function Page() {
   return (
     <main>
-      <section className="md:flex md:px-8 md:py-10 md:flex-row flex-col items-center flex p-4 gap-10">
+      <section className="md:flex md:px-8 md:py-4 md:flex-row flex-col items-center flex p-4 gap-10">
         <div className="">
           <h1 className="font-title text-title">
             Cada regalo puede contar una historia
@@ -24,11 +21,11 @@ export default function Page() {
             width={489}
             height={443}
             alt="gift"
-            className="w-80"
+            className="w-80 fade-in-img"
           />
         </div>
       </section>
-      <section className="flex flex-col items-center md:px-8 md:py-10 p-4 gap-10">
+      <section className="flex flex-col items-center md:px-8 md:py-4 p-4 gap-10">
         <p>
           Somos un equipo de dos universitarios que disfrutamos de la
           creatividad al diseñar productos que conectan con la personalidad de
@@ -38,7 +35,7 @@ export default function Page() {
           artículo.
         </p>
         <Image
-          className="w-full rounded-lg"
+          className="w-full rounded-lg shadow-md fade-in-img"
           width={1374}
           height={580}
           src="https://res.cloudinary.com/dkwdijf8x/image/upload/v1747932407/expopier_z6fkdc.jpg"
@@ -51,18 +48,24 @@ export default function Page() {
         </p>
         <a
           href="https://wa.me/+50433541719"
+          target="_blank"
           className="w-fit px-2 py-1 rounded-lg font-semibold flex gap-2 button"
         >
           Contactanos
-          <Image src={send} alt="send button" />
+          <Image src={send} alt="send button" className="fade-in-img" />
         </a>
 
         <Image
-          src={crafting}
+          src={
+            "https://res.cloudinary.com/dkwdijf8x/image/upload/v1748551673/crafting_flm8iu.png"
+          }
+          width={656}
+          height={568}
           alt="serenade crafting"
           className="md:hidden max-w-80"
         />
       </section>
     </main>
+    // </ViewTransition>
   )
 }

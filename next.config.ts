@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    // appDir: true,
+
+    viewTransition: true,
+  },
 }
 
 export default nextConfig

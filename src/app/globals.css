@@ -96,9 +96,66 @@ body {
   }
 }
 
-/* @layer base {
-  html {
-    font-family: var(--font-public-sans), system-ui, -apple-system,
-      BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+/* Opt-in global para que el navegador capture view-snapshots */
+@view-transition {
+  navigation: auto;
+}
+
+/* --- Desactiva animación del root (header/footer se quedan quietos) --- */
+@view-transition-group (root) {
+  animation: none;
+}
+::view-transition-old(root) {
+  animation: none;
+}
+::view-transition-new(root) {
+  animation: none;
+}
+
+/* --- Keyframes para nuestro contenedor "page" --- */
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
   }
-} */
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* --- Aplica solo a snapshots con nombre "page" --- */
+::view-transition-old(main) {
+  animation: slide-out 0.4s ease both;
+}
+::view-transition-new(main) {
+  animation: slide-in 0.4s ease both;
+}
+
+/* ─── Animación de aparición suave para imágenes ─── */
+@keyframes img-fade-in {
+  from {
+    opacity: 0; /* parte invisible…         */
+    transform: scale(0.97); /* …ligeramente encogida    */
+  }
+  to {
+    opacity: 1; /* termina opaca completa   */
+    transform: scale(1); /* tamaño normal            */
+  }
+}
+
+/* Utilidad que puedes añadir a cualquier <img> o <Image /> de Next */
+.fade-in-img {
+  opacity: 0; /* estado inicial */
+  animation: img-fade-in 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; /* mantiene el estado final */
+}
+.fade-in {
+  opacity: 0; /* estado inicial */
+  animation: img-fade-in 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards; /* mantiene el estado final */
+}

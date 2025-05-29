@@ -6,11 +6,14 @@ import menu from "../../../public/menu.svg"
 import cart from "../../../public/shopping-cart.svg"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const router = useRouter()
+  const pathname = usePathname()
+
+  console.log(pathname)
 
   return (
     <header className="dark:bg-accent2 bg-primary text-light dark:text-primary rounded-b-lg">
@@ -33,6 +36,13 @@ export default function Header() {
         <ul className="hidden md:flex gap-8 items-center">
           <Link
             href={"/"}
+            onClick={(e) => {
+              e.preventDefault()
+              console.log("pathname", pathname)
+              if (pathname !== "/") {
+                router.push("/")
+              }
+            }}
             className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out"
           >
             inicio
@@ -70,6 +80,13 @@ export default function Header() {
           <Link
             href={"/about"}
             className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out"
+            onClick={(e) => {
+              e.preventDefault()
+              console.log("pathname", pathname)
+              if (pathname !== "/about") {
+                router.push("/about")
+              }
+            }}
           >
             quienes somos
           </Link>
@@ -86,11 +103,11 @@ export default function Header() {
       {mobileMenuOpen && (
         // Fondo semitransparente que ocupa toda la pantalla
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-shadow p-5"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-shadow p-5 fade-in"
           onClick={() => setMobileMenuOpen(false)} // cerrar al click fuera
         >
           <div
-            className="relative bg-header-bg text-header-text p-6 rounded-lg flex flex-col items-center gap-2.5 w-max dark:bg-accent2 dark:text-light bg-primary text-light"
+            className="relative bg-header-bg text-header-text p-6 rounded-lg shadow-md flex flex-col items-center gap-2.5 w-max dark:bg-accent2 dark:text-light bg-primary text-light "
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -103,25 +120,33 @@ export default function Header() {
             {/* Opciones centradas */}
             <Link
               href="/"
-              className="py-2 font-bold"
+              className={`py-2  text-2xl ${pathname == "/" && "font-bold"}`}
               onClick={(e) => {
                 e.preventDefault()
                 setMobileMenuOpen(false)
-                router.push("/")
+                console.log("pathname", pathname)
+                if (pathname !== "/") {
+                  router.push("/")
+                }
               }}
             >
-              inicio
+              {pathname == "/" && "> "}inicio
             </Link>
             <Link
               href="/about"
-              className="py-2 font-bold"
+              className={`py-2  text-2xl ${
+                pathname == "/about" && "font-bold"
+              }`}
               onClick={(e) => {
                 e.preventDefault()
                 setMobileMenuOpen(false)
-                router.push("/about")
+                console.log("pathname", pathname)
+                if (pathname !== "/about") {
+                  router.push("/about")
+                }
               }}
             >
-              quienes somos
+              {pathname == "/about" && "> "}quienes somos
             </Link>
             {/* añade más enlaces aquí */}
           </div>
