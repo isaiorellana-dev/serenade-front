@@ -124,7 +124,7 @@ export default function ProductPage() {
             <Image
               src={mainImage}
               alt={product.name}
-              className="rounded-lg max-w-none w-full h-auto hover:scale-150 transition-all aspect-4/5"
+              className="rounded-lg max-w-none w-full h-auto hover:scale-150 transition-all aspect-4/5 object-cover"
               width={350}
               height={450}
             />
