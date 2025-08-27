@@ -21,7 +21,7 @@ export default async function ProductsCarrousel({
   const products: ApiResponse<Product[]> = await data.json()
 
   return (
-    <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar">
+    <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar scroll-color">
       {products.data.map((p) => (
         <ProductCard
           id={p.id}

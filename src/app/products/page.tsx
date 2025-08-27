@@ -13,7 +13,7 @@ export default async function Page() {
       <section className="py-2" id="gorras">
         <h1 className="font-title text-title text-center">Nuestras Gorras</h1>
 
-        <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar">
+        <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar scroll-color">
           {products.data
             .filter((p) => p.type == "cap")
             .map((p) => (
@@ -31,7 +31,7 @@ export default async function Page() {
         <h1 className="font-title text-title text-center">
           Nuestras Tote Bags
         </h1>
-        <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar">
+        <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar scroll-color">
           {products.data
             .filter((p) => p.type == "tote")
             .map((p) => (
@@ -47,7 +47,7 @@ export default async function Page() {
       </section>
       <section className="py-2" id="camisas">
         <h1 className="font-title text-title text-center">Nuestras Camisas</h1>
-        <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar">
+        <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar scroll-color">
           {products.data
             .filter((p) => p.type == "shirt")
             .map((p) => (
@@ -63,7 +63,7 @@ export default async function Page() {
       </section>
       {/* <section className="py-2">
           <h1 className="font-title text-title text-center">Nuestros Hoodies</h1>
-          <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar">
+          <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar scroll-color">
             {products.data
               .filter((p) => p.type == "hoodie")
               .map((p) => (
@@ -80,7 +80,7 @@ export default async function Page() {
       <section className="py-2" id="parches">
         <h1 className="font-title text-title text-center">Nuestros Parches</h1>
 
-        <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar">
+        <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar scroll-color">
           {products.data
             .filter((p) => p.type == "patch")
             .map((p) => (
@@ -98,7 +98,7 @@ export default async function Page() {
         <h1 className="font-title text-title text-center" id="vasos">
           Nuestros Vasos
         </h1>
-        <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar">
+        <div className="flex w-full gap-8 px-4 py-2 overflow-x-scroll no-scrollbar scroll-color">
           {products.data
             .filter((p) => p.type == "mug")
             .map((p) => (
