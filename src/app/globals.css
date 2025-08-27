@@ -68,6 +68,21 @@ section {
   background-color: rgba(0, 0, 0, 0.281);
 }
 
+.shadow {
+  box-shadow: 0px 2px 4px rgba(31, 31, 31, 0.147);
+}
+
+.mask-gradient {
+  mask-image: linear-gradient(
+    to right,
+    var(--color-primary) 95%,
+    transparent 100%
+  );
+  /* mask-repeat: no-repeat; */
+  /* mask-size: cover; */
+  /* display: none; */
+}
+
 p {
   color: var(--color-primary);
   font-size: 1rem;
@@ -83,11 +98,72 @@ main {
   }
 }
 
+select {
+  color: var(--color-primary);
+  width: 100%;
+  max-width: 64px;
+  padding: 0 4px 0 4px;
+  background-color: var(--color-accent4);
+  border-radius: 8px;
+  /* border: 2px solid var(--color-accent2); */
+  box-shadow: inset 0 0 0 2px var(--color-accent2);
+  /* box-sizing: border-box; */
+  appearance: none;
+}
+select:focus {
+  outline: none;
+}
+
+.inset-border {
+  box-shadow: inset 0 0 0 2px var(--color-accent2);
+}
+
+select option {
+  width: 100%;
+  background-color: var(--color-light);
+  border-radius: 8px;
+}
+
 body {
   background-color: var(--color-light);
   @variant dark {
     background-color: var(--color-primary);
   }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ocultar scrollbar en Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.add-button {
+  background-image: url("../../public/plus-circle-dark.svg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  @variant dark {
+    background-image: url("../../public/plus-circle.svg");
+  }
+}
+
+/* .add-button-dark {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+} */
+.skeleton {
+  background: linear-gradient(90deg, #c5c5c5 25%, #bebebe 50%, #888888 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+}
+
+.skeleton-image {
+  aspect-ratio: 3/4;
 }
 
 @layer utilities {

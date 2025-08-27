@@ -1,6 +1,8 @@
 import Image from "next/image"
 import ig from "../../public/instagram.svg"
 import fb from "../../public/facebook.svg"
+import ProductsCarrousel from "./components/ProductsCarrousel"
+import Link from "next/link"
 
 export default function Home() {
   return (
@@ -23,6 +25,16 @@ export default function Home() {
             cada día una celebración de amor y complicidad.
           </p>
         </div>
+      </section>
+      <section className="md:flex md:px-8 md:py-10 md:gap-9 flex-col items-center flex  gap-2">
+        <h1 className="font-title text-title">Nuestros productos</h1>
+        <ProductsCarrousel query={"/products?tags=pop&limit=5"} />
+        <Link
+          href={"/products"}
+          className="w-fit px-2 py-1 rounded-lg font-semibold flex gap-2 button"
+        >
+          Ver más
+        </Link>
       </section>
       <section className="md:flex md:px-8 md:py-10 md:flex-row md:gap-9 flex-col items-start flex p-4 gap-2">
         <Image

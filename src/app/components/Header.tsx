@@ -3,7 +3,7 @@
 import { useState } from "react"
 import logo from "../../../public/logo.png"
 import menu from "../../../public/menu.svg"
-import cart from "../../../public/shopping-cart.svg"
+// import cart from "../../../public/shopping-cart.svg"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -13,12 +13,24 @@ export default function Header() {
   const router = useRouter()
   const pathname = usePathname()
 
-  console.log(pathname)
-
   return (
     <header className="dark:bg-accent2 bg-primary text-light dark:text-primary rounded-b-lg">
       <nav className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Móvil: botón Menu */}
+
+        {/* Logo / Brand */}
+
+        <Link href={"/"}>
+          <Image src={logo} alt="serenade logo" className="h-7 w-auto" />
+        </Link>
+
+        {/* Móvil: carrito a la derecha */}
+        {/* <Image
+          src={cart}
+          className=" opacity-0 md:hidden"
+          alt="shopping cart"
+        /> */}
+
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden"
@@ -26,19 +38,12 @@ export default function Header() {
           <Image src={menu} alt="menu" />
         </button>
 
-        {/* Logo / Brand */}
-        <Image src={logo} alt="serenade logo" className="h-7 w-auto" />
-
-        {/* Móvil: carrito a la derecha */}
-        <Image src={cart} className="md:hidden" alt="shopping cart" />
-
         {/* Desktop: menú principal */}
         <ul className="hidden md:flex gap-8 items-center">
           <Link
             href={"/"}
             onClick={(e) => {
               e.preventDefault()
-              console.log("pathname", pathname)
               if (pathname !== "/") {
                 router.push("/")
               }
@@ -48,10 +53,12 @@ export default function Header() {
             inicio
           </Link>
 
-          {/* <li className="relative group">
-            <span className="cursor-pointer hover:text-light text-light dark:text-primary">
-              productos
-            </span>
+          <li className="relative group">
+            <Link href={"/products"}>
+              <span className="cursor-pointer hover:text-light text-light dark:text-primary">
+                productos
+              </span>
+            </Link>
             <ul
               className="
               absolute left-0 top-full
@@ -66,23 +73,28 @@ export default function Header() {
               transition-opacity
             "
             >
-              {["gorras", "vasos", "camisas"].map((item) => (
-                <li
-                  key={item}
-                  className="px-4 py-2 hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer whitespace-nowrap transition-colors duration-200 ease-in-out"
-                >
-                  {item}
-                </li>
-              ))}
+              {["gorras", "vasos", "camisas", "tote-bags", "parches"].map(
+                (item) => (
+                  <li key={item}>
+                    <Link
+                      href={"/products" + "#" + item}
+                      key={item}
+                      className="px-4 py-2 hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer whitespace-nowrap transition-colors duration-200 ease-in-out"
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
-          </li> */}
+          </li>
 
           <Link
             href={"/about"}
             className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out"
             onClick={(e) => {
               e.preventDefault()
-              console.log("pathname", pathname)
+
               if (pathname !== "/about") {
                 router.push("/about")
               }
@@ -124,7 +136,7 @@ export default function Header() {
               onClick={(e) => {
                 e.preventDefault()
                 setMobileMenuOpen(false)
-                console.log("pathname", pathname)
+
                 if (pathname !== "/") {
                   router.push("/")
                 }
@@ -132,6 +144,24 @@ export default function Header() {
             >
               {pathname == "/" && "> "}inicio
             </Link>
+
+            <Link
+              href="/about"
+              className={`py-2  text-2xl ${
+                pathname == "/products" && "font-bold"
+              }`}
+              onClick={(e) => {
+                e.preventDefault()
+                setMobileMenuOpen(false)
+
+                if (pathname !== "/products") {
+                  router.push("/products")
+                }
+              }}
+            >
+              {pathname == "/products" && "> "}nuestros productos
+            </Link>
+
             <Link
               href="/about"
               className={`py-2  text-2xl ${
@@ -140,7 +170,7 @@ export default function Header() {
               onClick={(e) => {
                 e.preventDefault()
                 setMobileMenuOpen(false)
-                console.log("pathname", pathname)
+
                 if (pathname !== "/about") {
                   router.push("/about")
                 }
@@ -148,7 +178,6 @@ export default function Header() {
             >
               {pathname == "/about" && "> "}quienes somos
             </Link>
-            {/* añade más enlaces aquí */}
           </div>
         </div>
       )}
