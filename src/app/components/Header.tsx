@@ -3,7 +3,6 @@
 import { useState } from "react"
 import logo from "../../../public/logo.png"
 import menu from "../../../public/menu.svg"
-import cart from "../../../public/shopping-cart.svg"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
