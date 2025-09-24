@@ -3,10 +3,11 @@
 import { useState } from "react"
 import logo from "../../../public/logo.png"
 import menu from "../../../public/menu.svg"
-// import cart from "../../../public/shopping-cart.svg"
+import cart from "../../../public/shopping-cart.svg"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
+import CartIcon from "./CartIcon"
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -25,11 +26,19 @@ export default function Header() {
         </Link>
 
         {/* Móvil: carrito a la derecha */}
-        {/* <Image
-          src={cart}
-          className=" opacity-0 md:hidden"
-          alt="shopping cart"
-        /> */}
+        <Link
+          href={"/cart"}
+          className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out"
+          onClick={(e) => {
+            e.preventDefault()
+
+            if (pathname !== "/cart") {
+              router.push("/cart")
+            }
+          }}
+        >
+          <Image src={cart} className="md:hidden" alt="shopping cart" />
+        </Link>
 
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -102,12 +111,21 @@ export default function Header() {
           >
             quienes somos
           </Link>
-          {/* <Link className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out">
-            contactános
+
+          <Link
+            href={"/cart"}
+            className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out"
+            onClick={(e) => {
+              e.preventDefault()
+
+              if (pathname !== "/cart") {
+                router.push("/cart")
+              }
+            }}
+          >
+            {/* <Image src={cart} className="" alt="shopping cart" /> */}
+            <CartIcon />
           </Link>
-          <Link className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out">
-            carrito
-          </Link> */}
         </ul>
       </nav>
 

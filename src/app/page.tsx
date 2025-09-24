@@ -31,7 +31,7 @@ export default function Home() {
         <ProductsCarrousel query={"/products?tags=pop&limit=5"} />
         <Link
           href={"/products"}
-          className="w-fit px-2 py-1 rounded-lg font-semibold flex gap-2 button"
+          className="w-fit px-2 py-1 rounded-lg font-semibold flex gap-2 button cursor-pointer"
         >
           Ver más
         </Link>

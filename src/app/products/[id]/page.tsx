@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from "react"
 import { useParams, notFound } from "next/navigation"
+import { useCart } from "@/app/context/CartContext"
 import Image from "next/image"
+import ProductsCarrouselCSR from "@/app/components/ProductsCarrouselCSR"
+import Link from "next/link"
 
 type Product = {
   id: number
@@ -23,12 +26,46 @@ type ApiResponse<T> = {
   meta?: string
 }
 
+type FormState = {
+  size?: string
+  quantity?: number
+  color?: string
+}
+
 export default function ProductPage() {
   const { id } = useParams()
   const [product, setProduct] = useState<Product | null>(null)
   const [mainImage, setMainImage] = useState<string>("")
   const [loading, setLoading] = useState<loading>("pending")
   const baseUrl = process.env.NEXT_PUBLIC_API_URL
+  const { addToCart } = useCart()
+  const [added, setAdded] = useState(false)
+
+  const [form, setForm] = useState({
+    size: "S",
+    color: "",
+    quantity: 1,
+  })
+
+  const [selectedColor, setSelectedColor] = useState<string>("")
+
+  const colors = [
+    { name: "pink", class: "bg-pink-500" },
+    { name: "purple", class: "bg-purple-500" },
+    { name: "blue", class: "bg-blue-500" },
+    { name: "red", class: "bg-red-500" },
+    { name: "teal", class: "bg-teal-500" },
+    { name: "black", class: "bg-black" },
+    { name: "white", class: "bg-white" },
+    { name: "green", class: "bg-green-500" },
+  ]
+
+  const updateForm = <K extends keyof FormState>(
+    field: K,
+    value: FormState[K]
+  ) => {
+    setForm((prev) => ({ ...prev, [field]: value }))
+  }
 
   useEffect(() => {
     if (!id) return
@@ -100,7 +137,7 @@ export default function ProductPage() {
   return (
     <main>
       {/* Product details */}
-      <section className="flex flex-wrap justify-center gap-2 w-full p-2">
+      <section className="flex flex-wrap justify-center gap-2 w-full p-2 pb-10">
         <div className="flex gap-2 w-full max-w-[420px] transition-all ">
           <div className="w-[15%]">
             {product.image_urls.map((url) => (
@@ -130,7 +167,7 @@ export default function ProductPage() {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-2 w-full max-w-[420px] md:w-1/2">
+        <div className="flex flex-col gap-3 w-full max-w-[420px] md:w-1/2">
           <h2 className="font-title">{product.name}</h2>
           <p>{product.description}</p>
           <span className="font-bold text-accent2">
@@ -144,15 +181,20 @@ export default function ProductPage() {
               >
                 Talla:
               </label>
-              <select name="size" id="" className="bg-accent2 inline">
+              <select
+                name="size"
+                id=""
+                className="bg-accent2 inline"
+                onChange={(e) => updateForm("size", e.target.value)}
+              >
                 {/* <option value="">Select an option</option> */}
-                <option value="">S</option>
-                <option value="">M</option>
-                <option value="">L</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
               </select>
             </div>
           )}
-          {/* <div>
+          <div>
             <label
               htmlFor=""
               className="inline mr-4 text-primary dark:text-light"
@@ -164,14 +206,96 @@ export default function ProductPage() {
               name=""
               id=""
               defaultValue={1}
+              min={1}
+              onChange={(e) => updateForm("quantity", Number(e.target.value))}
               className="text-primary px-2 inset-border rounded-lg bg-accent4 max-w-16"
             />
-          </div> */}
+          </div>
+          {["shirt", "hoodie", "cap"].includes(product.type) && (
+            <div>
+              <label
+                htmlFor=""
+                className="inline mr-4 text-primary dark:text-light"
+              >
+                Cambiar el color:
+              </label>
+              <div className="flex gap-1 flex-wrap">
+                {colors.map((color) => (
+                  <div
+                    key={color.name}
+                    onClick={() => {
+                      updateForm("color", color.name)
+                      setSelectedColor(color.name)
+                    }}
+                    className={`w-8 h-8 rounded-lg cursor-pointer transition-all 
+              ${color.class}
+              ${
+                selectedColor === color.name
+                  ? "border-4 border-accent1"
+                  : "hover:border-2 hover:border-accent1"
+              }`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          )}
+          <button
+            onClick={() => {
+              addToCart({
+                productId: product.id,
+                name: product.name,
+                unitPrice: product.base_price,
+                quantity: form.quantity,
+                imageUrl: product.image_urls[0],
+                attributes: {
+                  size: ["shirt", "hoodie"].includes(product.type)
+                    ? form.size
+                    : "",
+                  color: form.color,
+                },
+              })
+              setAdded(true)
+            }}
+            className={`w-fit px-2 py-1 rounded-lg font-semibold flex gap-2 button cursor-pointer transition-all 
+    ${
+      added
+        ? "opacity-50 cursor-not-allowed"
+        : "hover:border-2 hover:border-accent2"
+    }`}
+          >
+            {added ? "Agregado" : "Agregar al carrito"}
+          </button>
+          {added && (
+            <div className="flex gap-2">
+              <Link
+                href={"/products"}
+                className={
+                  "w-fit px-2 py-1 rounded-lg font-semibold flex gap-2 button cursor-pointer transition-all hover:border-2 hover:border-accent2"
+                }
+              >
+                Ir a Productos
+              </Link>
+              <Link
+                href={"/cart"}
+                className={
+                  "w-fit px-2 py-1 rounded-lg font-semibold flex gap-2 button cursor-pointer transition-all hover:border-2 hover:border-accent2"
+                }
+              >
+                Ir al Carrito
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
       {/* Related products */}
-      <section></section>
+      <section>
+        <h2 className="font-title text-center">Productos similares:</h2>
+        <ProductsCarrouselCSR
+          query={"/products?type=" + product.type}
+          excludeId={product.id}
+        />
+      </section>
     </main>
   )
 }

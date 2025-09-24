@@ -58,6 +58,7 @@ section {
 .button {
   color: var(--color-light);
   background-color: var(--color-primary);
+  box-shadow: 0px 2px 1px 1px rgba(0, 0, 0, 0.147);
   @variant dark {
     color: var(--color-primary);
     background-color: var(--color-light);

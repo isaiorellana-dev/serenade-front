@@ -4,6 +4,7 @@ import "./globals.css"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import { unstable_ViewTransition as ViewTransition } from "react"
+import { CartProvider } from "./context/CartContext"
 
 const publicSans = Public_Sans({
   // variable: "--font-public-sans",
@@ -23,8 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${publicSans.className} antialiased`}>
-        <Header />
-        <ViewTransition name="main">{children}</ViewTransition>
+        <CartProvider>
+          <Header />
+          <ViewTransition name="main">{children}</ViewTransition>
+        </CartProvider>
 
         <Footer />
       </body>
