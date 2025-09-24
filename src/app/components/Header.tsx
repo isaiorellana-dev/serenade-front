@@ -37,7 +37,7 @@ export default function Header() {
             }
           }}
         >
-          <Image src={cart} className="md:hidden" alt="shopping cart" />
+          <CartIcon />
         </Link>
 
         <button
