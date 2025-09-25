@@ -27,7 +27,7 @@ export default function Header() {
         {/* Móvil: carrito a la derecha */}
         <Link
           href={"/cart"}
-          className="hover:text-accent4 dark:hover:text-light text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out"
+          className="hover:text-accent4 dark:hover:text-light md:hidden text-light dark:text-primary cursor-pointer transition-colors duration-200 ease-in-out"
           onClick={(e) => {
             e.preventDefault()
 
