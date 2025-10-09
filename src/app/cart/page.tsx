@@ -39,7 +39,7 @@ export default function CartPage() {
               alt={item.name}
               width={80}
               height={100}
-              className="rounded mr-2 aspect-4/5 w-[80px] h-[100px]"
+              className="rounded mr-2 aspect-4/5 object-cover w-[80px] h-[100px]"
             />
             <div className="flex-1">
               <p className="font-bold">{item.name}</p>
